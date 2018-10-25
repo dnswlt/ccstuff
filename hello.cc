@@ -1,7 +1,7 @@
 #include <iostream>
 
 int main() {
-	std::cout << "Moin!\n";
-	return 0;
+  std::cout << "Moin!\n";
+  return 0;
 }
 
