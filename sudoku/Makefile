@@ -1,7 +1,7 @@
 TARGET = sudoku.exe 
 LIBS = 
 CC = g++
-CFLAGS = 
+CFLAGS = -O2
 
 .PHONY: default all clean
 
@@ -11,7 +11,7 @@ all: default
 OBJECTS = $(patsubst %.cc, %.o, $(wildcard *.cc))
 HEADERS = $(wildcard *.h)
 
-%.o: %.c $(HEADERS)
+%.o: %.cc $(HEADERS)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 .PRECIOUS: $(TARGET) $(OBJECTS)
@@ -19,7 +19,9 @@ HEADERS = $(wildcard *.h)
 $(TARGET): $(OBJECTS)
 	$(CC) $(OBJECTS) $(LIBS) -o $@
 
-clean:
+winclean:
 	del /Q *.o
 	del /Q $(TARGET)
 
+clean:
+	-rm -f *.o $(TARGET)

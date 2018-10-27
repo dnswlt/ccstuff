@@ -1,11 +1,16 @@
-#ifndef CC_SUDOKU_H_
-#define CC_SUDOKU_H_
+#ifndef CCSTUFF_SUDOKU_H_
+#define CCSTUFF_SUDOKU_H_
 
 #include <bitset>
 #include <vector>
 
-int Ind(int r, int c, int num);
+// Type definitions and util functions of the sudoku solver.
 
+
+// Move represents a single "move" in Sudoku, i.e. writing down a number
+// on a particular field of the Sudoku board. Each move has an associated
+// `mask` that has all bits of positions set that are mutually exclusive 
+// with this move set.
 class Move {
 public:
   int r;
@@ -16,6 +21,7 @@ public:
 };
 
 
+// State represents the possible remaining moves.
 class State {
 public:
   State(const Move *move) : move_(move), mask(move->mask) { }
@@ -27,6 +33,8 @@ private:
   const Move *move_;
 };
 
+
+// Board represents an ongoing or finished Sudoku game and solves incomplete games.
 class Board {
 public:
   int backtrack_cnt = 0;
@@ -46,8 +54,9 @@ private:
   bool Done();
 };
 
+// Allows to send the current board contents to an ostream.
 std::ostream &operator<<(std::ostream& os, const Board& board);
 
  
-#endif // CC_SUDOKU_H_
+#endif // CCSTUFF_SUDOKU_H_
 

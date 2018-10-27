@@ -6,7 +6,7 @@
 #include <cctype>
 #include <bitset>
 
-int Ind(int r, int c, int num) {
+static int Ind(int r, int c, int num) {
   return r * 81 + c * 9 + (num-1);
 }
 
@@ -79,16 +79,22 @@ const State& Board::Current() {
   return states[states.size()-1];
 }
 
+// Computes all possible next moves of the square that is most constrained,
+// i.e. allows the least amount of numbers to be tried. If this square is not
+// unique, returns moves for an arbitrary such square.
 std::vector<const Move*> Board::NextMoves() {
   if (states.size() == 0) {
+    // Nothing on the board yet, any move should work
     return std::vector<const Move*>({all_moves[0]});
   }
-  int ps[9][9] = {};
+  // For each square, count the remaining choices
+  int choices[9][9] = {};
   for (auto const m : all_moves) {
     if (nums[m->r][m->c] == 0 && Current().Possible(m->r, m->c, m->num)) {
-      ps[m->r][m->c]++;
+      choices[m->r][m->c]++;
     }
   }
+  // Find square with minimum choices left
   int min_i = -1;
   int min_j = 0;
   for (int i=0; i<9; i++) {
@@ -96,15 +102,16 @@ std::vector<const Move*> Board::NextMoves() {
       if (nums[i][j] > 0) {
         // already assigned
         continue;
-      } else if (ps[i][j] == 0) {
-        // no possible choices: time to backtrack
+      } else if (choices[i][j] == 0) {
+        // no possible choices: board is in invalid state. Time to backtrack.
         return std::vector<const Move*>();  
-      } else if (min_i == -1 || ps[i][j] < ps[min_i][min_j]) {
+      } else if (min_i == -1 || choices[i][j] < choices[min_i][min_j]) {
         min_i = i;
         min_j = j;
       }
     }
   }
+  // Collect possible moves for min square
   std::vector<const Move*> result;
   for (int n=1; n<=9; n++) {
     const Move *m = GetMove(min_i, min_j, n);
@@ -115,6 +122,7 @@ std::vector<const Move*> Board::NextMoves() {
   return result;
 }
 
+// Local search with backtracking
 bool Board::Solve() {
   if (Done()) {
     return true;
@@ -135,9 +143,9 @@ std::ostream &operator<<(std::ostream& os, const Board& board) {
   for (int i=0; i<9; i++) {
     for (int j=0; j<9; j++) {
       if (b[i][j] > 0) {
-        os << b[i][j];
+        os << b[i][j] << " ";
       } else {
-        os << " ";
+        os << ". ";
       }
     }
     os << "\n";
@@ -145,6 +153,7 @@ std::ostream &operator<<(std::ostream& os, const Board& board) {
   return os;
 }
 
+// Read board from a text file, and solve it
 int main(int argc, char **argv) {
   if (argc != 2) {
     std::cout << "Usage: " << argv[0] << " <board-file>\n";
