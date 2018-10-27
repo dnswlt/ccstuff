@@ -18,10 +18,8 @@ public:
 
 class State {
 public:
-  State(const Move *move) : move_(move), mask(move->mask) {
-  }
-  State(const State& pred, const Move *move) : move_(move), mask(pred.mask | move->mask) {
-  } 
+  State(const Move *move) : move_(move), mask(move->mask) { }
+  State(const State& pred, const Move *move) : move_(move), mask(pred.mask | move->mask) { } 
   bool Possible(int r, int c, int num) const;
   const Move *move() const { return move_; }
 private:
