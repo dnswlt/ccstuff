@@ -1,5 +1,7 @@
 *.swp
 *~
 *.exe
+*.o
+*.obj
 build/
 
