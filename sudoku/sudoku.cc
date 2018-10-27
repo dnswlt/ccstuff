@@ -48,13 +48,13 @@ Board::~Board() {
 }
 
 void Board::MakeMove(const Move *m) {
-    nums[m->r][m->c] = m->num;
-    if (states.size() == 0) {
-      states.push_back(State(m));
-    } else {
-      states.push_back(State(states[states.size()-1], m));
-    }
+  nums[m->r][m->c] = m->num;
+  if (states.size() == 0) {
+    states.push_back(State(m));
+  } else {
+    states.push_back(State(states[states.size()-1], m));
   }
+}
 
 void Board::Backtrack() {
   auto const m = Current().move();
