@@ -38,8 +38,19 @@ Code motion
 * `[{brk}` goto outer left bracket, where `{brk}` can be `{` or `(`
 * `]{brk}` goto outer right bracket, where `{brk}` can be `}` or `)`
 
-# Copy and paste
+## Copy and paste
 
 * `"{reg}p` paste content of register `{reg}`
 * `:reg` register contents
+
+# gVim
+
+Start gVim with a fixed window size and position:
+
+* Run `set sessionoptions+=resize,winpos` to include the relevant info in a vim session file
+* Run `:mksession` to create a `Session.vim` file
+* Copy the `lines`, `columns` and `winpos` settings into your `$MYGVIMRC` file
+
+    set lines=56 columns=145
+    winpos 602 0
 
