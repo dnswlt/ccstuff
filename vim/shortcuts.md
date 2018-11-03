@@ -51,7 +51,7 @@ Start gVim with a fixed window size and position:
 * Run `:mksession` to create a `Session.vim` file
 * Copy the `lines`, `columns` and `winpos` settings into your `$MYGVIMRC` file
 
-```
-    set lines=56 columns=145
-    winpos 602 0
+```vim
+set lines=56 columns=145
+winpos 602 0
 ```
