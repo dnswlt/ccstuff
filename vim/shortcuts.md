@@ -13,8 +13,12 @@
 ## Find and replace
 
 * `/{pattern}` search for `pattern`
+* `/\v{pattern}` "very magic" pattern syntax (every non-alpha char is special, close to Perl syntax)
+* `/\c{pattern}` Case-insensitive search
 * `n` find next occurrence of previous pattern
 * `N` find previous occurrence of pattern
+* `:%s/{pattern}/{repl}/{flags}` (`{flags}` are `g` global, `c` confirm, `n` count only)
+* `:%s//{repl}/{flags}` like above, but use previously searched `{pattern}` (also from `/` find)
 
 ## Selecting text
 
@@ -24,13 +28,23 @@
 
 * `gg` go to first line buffer
 * `G` go to last line in buffer
+* `{`, `}` go to previous/next paragraph (separated by empty line)
+* `(`, `)`, go to previous/next sentence (separated by punctuation mark)
+* `f{letter}` go to next occurrence of `{letter}` on current line
+* `;` repeat last `f{letter}` command
+
 * `m{letter}` mark current cursor position
 * `'{letter}` move to mark `{letter}` in current buffer
+
 
 * `<C-^>` Goto alternate buffer (toggle between two buffers)
 * `<C-o>` Goto previous jump location
 * `<C-i>` Goto next jump location
 * `:jumps` List jump locations
+
+* `g;` Goto previous edit location in current buffer
+* `g,` Goto next edit location (inverse of `g;`)
+* `gi` Switch to insert mode at last insert location in current buffer
 
 Code motion
 
@@ -40,8 +54,16 @@ Code motion
 
 ## Copy and paste
 
-* `"{reg}p` paste content of register `{reg}`
-* `:reg` register contents
+Normal mode
+
+* `"{reg}p` put (paste) content of register `{reg}`
+* `"{reg}y{motion}` yank (copy) `{motion}` characters into register `{reg}` (use `*` for system clipboard)`
+
+Visual mode
+
+* `<C-r>+` insert system clipboard contents (also in insert mode)
+* `"+y` yank selected text to system clipboard
+* `:reg` list register contents
 
 # gVim
 
@@ -55,3 +77,4 @@ Start gVim with a fixed window size and position:
 set lines=56 columns=145
 winpos 602 0
 ```
+
