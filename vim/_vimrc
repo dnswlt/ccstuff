@@ -60,6 +60,9 @@ nnoremap <C-l> :nohlsearch<CR><C-l>
 " Next/previous buffer
 nnoremap [b :bprevious<CR>
 nnoremap ]b :bnext<CR>
+" Next/previous quickfix item
+nnoremap [q :cprev<CR>
+nnoremap ]q :cnext<CR>
 " make * search for selected text in visual mode
 vnoremap * y/\V<C-r>=escape(@",'/\')<CR><CR>
 
