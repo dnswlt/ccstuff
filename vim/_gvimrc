@@ -1,0 +1,6 @@
+set vb t_vb=
+set lines=56 columns=145
+winpos 602 0
+" Line numbers, unobtrusive
+set number
+highlight LineNr guifg=#d3d3d3
