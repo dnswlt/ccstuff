@@ -15,9 +15,13 @@ set tabstop=8
 set shiftwidth=2
 set softtabstop=2
 set expandtab
+" Visual tabs
+set list
+set listchars=tab:→·
 if has("autocmd")
   filetype plugin indent on
 endif
+
 
 set backspace=indent,eol,start         " let backspace delete everything, not just inserted text
 set incsearch                          " jump to search result while typing
