@@ -4,6 +4,8 @@ winpos 602 0
 " Line numbers, unobtrusive
 set number
 highlight LineNr guifg=#d3d3d3
+" Display info about syntax ID of item under cursor
 nnoremap <Leader>H :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR> 
+set background=dark 
 colorscheme gruvbox
 
