@@ -29,7 +29,7 @@ language messages en_US
 :let mapleader = ","
 
 if has("gui_running")
-  set guifont=Courier\ New:h10:cANSI
+  set guifont=Consolas:h11:cANSI
 endif
 
 let g:netrw_banner = 0                 " avoid useless netrw banner
