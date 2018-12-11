@@ -34,6 +34,7 @@ endif
 
 let g:netrw_banner = 0                 " avoid useless netrw banner
 let g:netrw_liststyle = 1              " add size and file info
+let g:netrw_altfile = 1                " no Ctrl-^ to netrw buffers
 
 set wildmode=longest,list,full         " (almost) Bash-style tab-completion
 set wildmenu
