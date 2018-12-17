@@ -21,7 +21,8 @@ set listchars=tab:→·
 if has("autocmd")
   filetype plugin indent on
 endif
-
+" special tab settings for golang
+autocmd Filetype go setlocal nolist tabstop=2
 
 set backspace=indent,eol,start         " let backspace delete everything, not just inserted text
 set incsearch                          " jump to search result while typing
