@@ -21,7 +21,8 @@ set listchars=tab:→·
 if has("autocmd")
   filetype plugin indent on
 endif
-
+" special tab settings for golang
+autocmd Filetype go setlocal nolist tabstop=2
 
 set backspace=indent,eol,start         " let backspace delete everything, not just inserted text
 set incsearch                          " jump to search result while typing
@@ -34,6 +35,7 @@ endif
 
 let g:netrw_banner = 0                 " avoid useless netrw banner
 let g:netrw_liststyle = 1              " add size and file info
+let g:netrw_altfile = 1                " no Ctrl-^ to netrw buffers
 
 set wildmode=longest,list,full         " (almost) Bash-style tab-completion
 set wildmenu
