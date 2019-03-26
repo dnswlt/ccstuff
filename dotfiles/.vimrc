@@ -47,8 +47,8 @@ set path=.,,
 set tags=./tags;
 
 " Move line up/down
-nnoremap j :m .+1<CR>==
-nnoremap k :m .-2<CR>==
+nnoremap <C-j> :m .+1<CR>==
+nnoremap <C-k> :m .-2<CR>==
 nnoremap <Leader>s :update<CR>
 nnoremap <Leader>w :bd<CR>
 nnoremap <Leader>a :Ack<Space>
@@ -60,9 +60,6 @@ nnoremap <Leader>e :Explore<CR>
 nnoremap <Leader>t :CtrlPTag<CR>
 nnoremap <Leader>r :CtrlPMRUFiles<CR>
 
-" Navigate through quickfix list
-nnoremap <C-j> :cn<CR>
-nnoremap <C-k> :cp<CR>
 nnoremap <C-l> :nohlsearch<CR><C-l>
 " Next/previous buffer
 nnoremap [b :bprevious<CR>
@@ -82,4 +79,3 @@ endif
 execute pathogen#infect()
 
 " let g:ctrlp_custom_ignore = 'node_modules/\|\.git/'
-
