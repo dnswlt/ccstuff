@@ -70,12 +70,15 @@ nnoremap ]q :cnext<CR>
 " make * search for selected text in visual mode
 vnoremap * y/\V<C-r>=escape(@",'/\')<CR><CR>
 
+execute pathogen#infect()
 
 " set makeprg=mingw32-make.exe
 if executable('ag')
   let g:ackprg = 'ag --vimgrep'
 endif
 
-execute pathogen#infect()
+set background=dark
+colorscheme gruvbox
+
 
 " let g:ctrlp_custom_ignore = 'node_modules/\|\.git/'
