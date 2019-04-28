@@ -10,6 +10,7 @@ set ruler
 set hlsearch
 syntax enable
 set encoding=utf-8
+set number
 " Tabs and spaces
 set tabstop=8
 set shiftwidth=2
