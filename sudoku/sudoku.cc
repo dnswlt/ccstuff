@@ -1,10 +1,12 @@
 #include "sudoku.h"
 
-#include <iostream>
-#include <fstream>
-#include <vector>
-#include <cctype>
 #include <bitset>
+#include <cctype>
+#include <fstream>
+#include <iostream>
+#include <regex>
+#include <string_view>
+#include <vector>
 
 static int Ind(int r, int c, int num) {
   return r * 81 + c * 9 + (num-1);
@@ -153,18 +155,12 @@ std::ostream &operator<<(std::ostream& os, const Board& board) {
   return os;
 }
 
-// Read board from a text file, and solve it
-int main(int argc, char **argv) {
-  if (argc != 2) {
-    std::cout << "Usage: " << argv[0] << " <board-file>\n";
-    return 1;
-  }  
-  std::ifstream f_in(argv[1]);
+bool ReadFromFile(std::string_view filename, Board& board) {
+  std::ifstream f_in(filename);
   if (!f_in) {
-    std::cout << "Could not open file " << argv[1] << "\n";
-    return 1;
+    std::cout << "Could not open file " << filename << "\n";
+    return false;
   }
-  Board board;
   int row = 0;
   for (std::string line; std::getline(f_in, line); ) {
     if (line.length() == 0) {
@@ -172,7 +168,7 @@ int main(int argc, char **argv) {
     }
     if (line.length() != 9) {
       std::cout << "Invalid line: " << line << "\n";
-      return 1;
+      return false;
     }
     for (int i=0; i<9; i++) {
       if (std::isdigit(line[i])) {
@@ -183,6 +179,38 @@ int main(int argc, char **argv) {
     row++;
   } 
   std::cout << "Board with " << board.states.size() << " numbers read\n";
+  return true;
+}
+
+bool ReadFromString(std::string_view board_values, Board& board) {
+  std::regex board_regex(R"re([0-9. ]+)re");
+  if (board_values.size() != 81 || 
+      !std::regex_match(board_values, board_regex)) {
+    return false;
+  }
+  for (int i = 0; i < 9; i++) {
+    for (int j = 0; j < 9; j++) {
+      char c = board_values[i * 9 + j];
+      if (std::isdigit(c)) {
+        board.MakeMove(i, j, c - '0');
+      }
+    }
+  }
+  return true;
+}
+
+// Read board from a text file, and solve it
+int main(int argc, char **argv) {
+  if (argc != 2) {
+    std::cout << "Usage: " << argv[0] << " <board-file|board-string>\n";
+    return 1;
+  }  
+  Board board;
+  if (!ReadFromString(argv[1], board) &&
+      !ReadFromFile(argv[1], board)) {
+    std::cout << "Cannot build board from " << argv[1] << "\n";
+    return 1;
+  }
   std::cout << board << "\n";
   bool solved = board.Solve();
   if (solved) {
