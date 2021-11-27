@@ -81,6 +81,10 @@ int main()
   std::cout << "sizeof(lambda_capture_int32_t_arr_10): " << sizeof(lambda_capture_int32_t_arr_10) << "\n";
   auto lambda_capture_int32_t_arr_ref = [&v](int32_t i) { return v[i]; };
   std::cout << "sizeof(lambda_capture_int32_t_arr_ref): " << sizeof(lambda_capture_int32_t_arr_ref) << "\n";
+  std::function<int32_t(std::string)> fn = [](std::string x) { return x.size(); };
+  std::cout << "sizeof(std::function<int32_t(std::string)>): " << sizeof(fn) << "\n";
+  std::function<int32_t(std::string)> fn2 = [v](std::string x) { return x.size(); };
+  std::cout << "sizeof(std::function<int32_t(std::string)>) (int32_t[10] capture): " << sizeof(fn2) << "\n";
 
   return 0;
 }
