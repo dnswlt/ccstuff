@@ -1,0 +1,36 @@
+<html>
+
+  <body>
+
+    <p>embind_test: Check the developer console for outputs.</p>
+
+    <script>
+      let resolveModuleInitialized = null;
+      let moduleInitialized = new Promise((resolve) => {
+              resolveModuleInitialized = resolve;
+            });
+      var Module = {
+              onRuntimeInitialized: function() {
+                console.log("onRuntimeInitialized was called");
+                resolveModuleInitialized();
+              }
+      };
+        
+    </script>
+
+    <script src="./embind_test.js"></script>
+
+    <script>
+      async function runThatThing() {
+        await moduleInitialized;
+        let result = Module.doSomething({data: "foo", timeout: 10});
+        console.log("Reversed: ", result.data, "len: ", result.len);
+      }
+      runThatThing();
+
+    </script>
+
+  </body>
+
+</html>
+

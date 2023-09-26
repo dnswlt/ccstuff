@@ -1,0 +1,36 @@
+<html>
+
+  <body>
+
+
+    <script>
+      let resolveModuleInitialized = null;
+      let moduleInitialized = new Promise((resolve) => {
+              resolveModuleInitialized = resolve;
+            });
+      var Module = {
+              onRuntimeInitialized: function() {
+                console.log("onRuntimeInitialized");
+                resolveModuleInitialized();
+              }
+      };
+        
+    </script>
+
+    <script src="./bind_fun.js"></script>
+
+    <script>
+      async function doSomething() {
+        await moduleInitialized;
+        console.log(Module._triple(3));
+        // let triple = Module.cwrap('triple', 'number', ['number'])
+        // console.log("triple(3): ", triple(3));
+      }
+      doSomething();
+
+    </script>
+
+  </body>
+
+</html>
+
